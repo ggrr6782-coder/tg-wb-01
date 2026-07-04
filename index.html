@@ -85,17 +85,11 @@
         const tg = window.Telegram.WebApp;
         tg.expand(); // Принудительно разворачиваем шторку на весь экран смартфона!
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const liveBalance = urlParams.get('bal') || '0.0'; // Если параметра нет, ставим 0.0
-
-    // 1. Автоматически подставляем реальное имя пользователя крупными буквами
+        // Автоматически вытаскиваем реальное имя из Телеграма Алисы или тебя!
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
             document.getElementById("user-greeting").innerText = `RECTO: ${tg.initDataUnsafe.user.first_name.toUpperCase()}`;
-        }    
+        }
 
-        // 2. ЖЕСТКАЯ ПОДВЯЗКА: Заменяем старую заглушку 500$ на реальное живое число liveBalance из базы!
-        document.querySelector(".balance-box").innerHTML = `💳 Баланс Казны: <strong style="color: #00e676;">${liveBalance} USDT</strong>`;
-        
         // Тестовая функция клика по кнопке цены
         function buyPost(channelName, price) {
             tg.showAlert(`Запрос b2b-сделки:\nПокупка поста в канале "${channelName}" за ${price}$ перенаправлена на сервер!`);
